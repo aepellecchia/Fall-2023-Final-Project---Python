@@ -38,3 +38,24 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+
+from IPython.display import display, HTML
+from ipywidgets import widgets, interact
+import pandas as pd
+from IPython.display import display
+
+def display_column(dataframe):
+    print("Parameters available:")
+    columns = dataframe.columns.tolist()
+    for idx, column in enumerate(columns):
+        print(f"{idx+1}. {column}")
+    choice = int(input("\nChoose a parameter to display:"))
+    if choice < 1 or choice > len(columns):
+        print("Error: Invalid Number")
+        return
+    chosen_column = dataframe[columns[choice-1]]
+    print(f"{columns[choice-1]}")
+    print(chosen_column)
+
+df = pd.read_csv('gmail_export_aepellec.csv').sample(20)
+display_column(df)
